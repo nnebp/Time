@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<script src="Tone.js"></script>
+
+<script>
+function playTone(red, green, blue) {
+    var distortion = new Tone.Distortion(0.6)
+    var tremolo = new Tone.Tremolo().start()
+    var chords = [`${red}`, `${green}`, `${blue}`];
+
+    var polySynth = new Tone.PolySynth(4, Tone.Synth).chain(distortion, tremolo, Tone.Master)
+
+    polySynth.triggerAttack(chords)
+
+    var loop = new Tone.Loop(function(time){
+      polySynth.triggerAttack(chords)
+    }, "4n");
+}
+</script>
+
+<body onload="playTone(123, 11, 13)">
+
+</html>
